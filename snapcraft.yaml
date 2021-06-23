@@ -1,0 +1,31 @@
+name: python-snap
+base: core20
+version: '0.1'
+summary: Confined python snap
+description: |
+  Confined python snap.
+
+grade: devel
+confinement: strict
+
+apps:
+  conn:
+    command: bin/conn.py
+    plugs: [ network-manager ]
+    environment:
+      GI_TYPELIB_PATH: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/girepository-1.0/
+
+parts:
+  conn-script:
+    plugin: python
+    source: conn-script
+    python-packages:
+      - PyGObject
+      - python-networkmanager
+    stage-packages:
+      - libgirepository-1.0-1
+      - gir1.2-nm-1.0
+    override-build: |
+      snapcraftctl build
+      mkdir -p "$SNAPCRAFT_PART_INSTALL"/bin/
+      cp conn.py "$SNAPCRAFT_PART_INSTALL"/bin/
