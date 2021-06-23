@@ -21,7 +21,6 @@ parts:
     source: conn-script
     python-packages:
       - PyGObject
-      - python-networkmanager
     stage-packages:
       - libgirepository-1.0-1
       - gir1.2-nm-1.0
